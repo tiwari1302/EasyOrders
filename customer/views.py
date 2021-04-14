@@ -27,6 +27,9 @@ class Order(View):
         return render(request, 'customer/order.html', context)
 
     def post(self, request, *args, **kwargs):
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+
         order_items = {
             'items': []
         }
@@ -48,7 +51,11 @@ class Order(View):
         for item in order_items['items']:
             price += item['price']
             item_ids.append(item['id'])
-        order = OrderModel.objects.create(price=price)
+        order = OrderModel.objects.create(
+            price=price,
+            name=name,
+            email=email
+        )
         order.items.add(*item_ids)
 
         context = {
