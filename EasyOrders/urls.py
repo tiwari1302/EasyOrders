@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from customer.views import Index, About
+from customer.views import Index, About, Order
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Index.as_view(), name='index'),
-    path('about/', About.as_view(), name='about'),    
+    path('about/', About.as_view(), name='about'),
+    path('order/', Order.as_view(), name='order'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
