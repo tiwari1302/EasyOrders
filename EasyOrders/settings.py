@@ -37,7 +37,7 @@ AUTHENTICATION_BACKENDS = [
 INSTALLED_APPS = [
     'customer',
     'restaurant',
-    'django.contrib.sites',
+    'crispy_forms',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
 ]
 
@@ -66,7 +67,7 @@ ROOT_URLCONF = 'EasyOrders.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,3 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import mimetypes
 mimetypes.add_type("text/css", ".css", True)
+
+ACCOUNT_ADAPTER = 'restaurant.account_adapter.NoNewUserAccountAdapter'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
