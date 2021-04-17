@@ -146,4 +146,6 @@ mimetypes.add_type("text/css", ".css", True)
 
 ACCOUNT_ADAPTER = 'restaurant.account_adapter.NoNewUserAccountAdapter'
 
+LOGIN_REDIRECT_URL = 'dashboard'
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
