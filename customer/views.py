@@ -43,8 +43,7 @@ class Order(View):
                 'price': menu_item.price
             }
 
-            order_items['items'].append(item_data)
-
+            order_items['items'].append(item_data)  
             price = 0
             item_ids = []
 
