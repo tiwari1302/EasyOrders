@@ -1,9 +1,13 @@
 {% extends 'customer/base.html' %}
-
+{% block title %}
+EasyOrders - Menu
+{% endblock %}
 {% block content %}
 <div class="container mb-5">
+    
     <div class="row justify-content-center mt-1">
         <div class="col-md-12 col-sm-12 p-4">
+            <p><h2>Select items to add them to cart (You can change quantity in the cart section)</h2></p>
             <form method="POST">
                 {% csrf_token %}
                 <div class="pt-5">
@@ -21,7 +25,7 @@
                                 <p class="font-weight-bold pl-5">{{ drink.price }}</p>
                             </div>
                             <p>{{ drink.description }}</p>
-                            <!--<input type="text" name="" placeholder="Quantity" value="">-->
+                            <input type="text" name="" placeholder="Quantity" value="">
                         </div>
                     </div>
                     <hr />
@@ -43,7 +47,7 @@
                                 <p class="font-weight-bold pl-5">{{ sandwich.price }}</p>
                             </div>
                             <p>{{ sandwich.description }}</p>
-                            <!--<input type="text" name="" placeholder="Quantity" value="">-->
+                            <input type="text" name="" placeholder="Quantity" value="">
                         </div>
                     </div>
                     <hr />
@@ -65,7 +69,7 @@
                                 <p class="font-weight-bold pl-5">{{ pizza.price }}</p>
                             </div>
                             <p>{{ pizza.description }}</p>
-                            <!--<input type="text" name="" placeholder="Quantity" value="">-->
+                            <input type="text" name="Quantity" placeholder="Quantity" value="">
                         </div>
                     </div>
                     <hr />
@@ -85,12 +89,14 @@
                 
 
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#submitModal">
-                  Submit Order!
+                <!--<a href="{% url 'cart' %}">-->
+                <button type="submit" class="btn btn-dark">
+                  Submit order and proceed to cart!
                 </button>
+                <!--</a>-->
                 <!-- <button class="btn btn-dark mt-5">Place Order!</button> -->
 
-                <!-- Modal -->
+                <!-- Modal 
                 <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="submitModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -107,7 +113,7 @@
                     </div>
                   </div>
                 </div>
-
+                -->
             </form>
         </div>
     </div>
