@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from .models import Category, MenuItem, OrderModel
+from .models import Category, MenuItem, OrderModel, Quantity
 # Create your views here.
 class Index(View):
     def get(self, request, *args, **kwargs):
@@ -37,19 +37,24 @@ class Order(View):
         items = request.POST.getlist('items[]')
         for item in items:
             menu_item = MenuItem.objects.get(pk=int(item))
+            try:
+                item_quantity = Quantity.objects.get(pk=int(item))
+            except Quantity.DoesNotExist:
+                item_quantity = None
+            #item_quantity = Quantity.objects.get(pk=int(item))
             item_data = {
                 'id': menu_item.pk,
                 'name': menu_item.name,
-                'price': menu_item.price
+                'price': menu_item.price,
+                'count': item_quantity.count
             }
 
-            order_items['items'].append(item_data)
-
+            order_items['items'].append(item_data)  
             price = 0
             item_ids = []
 
         for item in order_items['items']:
-            price += item['price']
+            price += item['price']*item['count']
             item_ids.append(item['id'])
         order = OrderModel.objects.create(
             price=price,
