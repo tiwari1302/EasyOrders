@@ -31,17 +31,22 @@ class Order(View):
         email = request.POST.get('email')
 
         order_items = {
-            'items': []
+            'items': [],
+            'counts': []
         }
 
         items = request.POST.getlist('items[]')
-        for item in items:
-            menu_item = MenuItem.objects.get(pk=int(item))
+        counts = request.POST.getlist('counts[]')
+        
+ 
+        for count in counts:
             try:
-                item_quantity = Quantity.objects.get(pk=int(item))
+                item_quantity = Quantity.objects.get_or_create(count=count)
             except Quantity.DoesNotExist:
                 item_quantity = None
-            #item_quantity = Quantity.objects.get(pk=int(item))
+               
+        for item in items:
+            menu_item = MenuItem.objects.get(pk=int(item))
             item_data = {
                 'id': menu_item.pk,
                 'name': menu_item.name,
@@ -52,10 +57,11 @@ class Order(View):
             order_items['items'].append(item_data)  
             price = 0
             item_ids = []
-
+    
         for item in order_items['items']:
             price += item['price']*item['count']
             item_ids.append(item['id'])
+        #print(price)
         order = OrderModel.objects.create(
             price=price,
             name=name,
@@ -65,6 +71,7 @@ class Order(View):
 
         context = {
         'items': order_items['items'],
+        'counts': order_items['counts'],
         'price': price
         }
 

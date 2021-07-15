@@ -22,6 +22,7 @@ class OrderModel(models.Model):
     items = models.ManyToManyField(MenuItem, related_name='order', blank=True, through='Quantity')
     name = models.CharField(max_length=50, blank=True)
     email = models.CharField(max_length=50, blank=True)
+
     
     def __str__(self):
         item_list = dict()
@@ -35,4 +36,4 @@ class OrderModel(models.Model):
 class Quantity(models.Model):
     order = models.ForeignKey(OrderModel, on_delete=models.CASCADE)
     item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
-    count = models.PositiveIntegerField(null=False, default=1)
+    count = models.CharField(max_length=2, null=True, blank=True, default='1')
