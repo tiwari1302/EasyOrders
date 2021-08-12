@@ -12,6 +12,8 @@ class MenuItem(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    class Meta:
+        verbose_name_plural = "Categories"
 
     def __str__(self):
         return self.name
@@ -37,3 +39,6 @@ class Quantity(models.Model):
     order = models.ForeignKey(OrderModel, on_delete=models.CASCADE)
     item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     count = models.CharField(max_length=2, null=True, blank=True, default='1')
+
+    class Meta:
+        verbose_name_plural = "Quantities"
