@@ -40,19 +40,23 @@ class Order(View):
             item_data = {
                 'id': menu_item.pk,
                 'name': menu_item.name,
-                'price': menu_item.price
+                'price': menu_item.price,
+                'time' : menu_item.prep_time
             }
 
             order_items['items'].append(item_data)
 
             price = 0
+            time = 0
             item_ids = []
 
         for item in order_items['items']:
             price += item['price']
             item_ids.append(item['id'])
+            time += item['time']
         order = OrderModel.objects.create(
             price=price,
+            time=time,
             name=name,
             email=email
         )
@@ -60,7 +64,8 @@ class Order(View):
 
         context = {
         'items': order_items['items'],
-        'price': price
+        'price': price,
+        'time': time
         }
 
         return render(request, 'customer/order_confirmation.html', context)

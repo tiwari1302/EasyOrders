@@ -6,7 +6,7 @@ class MenuItem(models.Model):
     image = models.ImageField(upload_to='menu_images/')
     price = models.DecimalField(max_digits=5, decimal_places=2)
     category = models.ManyToManyField('Category', related_name='item')
-
+    prep_time = models.DecimalField(max_digits=4, decimal_places=2, null=True)
     def __str__(self):
         return self.name
 
@@ -22,6 +22,6 @@ class OrderModel(models.Model):
     items = models.ManyToManyField('MenuItem', related_name='order', blank=True)
     name = models.CharField(max_length=50, blank=True)
     email = models.CharField(max_length=50, blank=True)
-    
+    time = models.DecimalField(max_digits=4, decimal_places=2, null=True)
     def __str__(self):
         return f'Order: {self.created_on.strftime("%b %d %I: %M %p")}'
