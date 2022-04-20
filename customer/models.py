@@ -12,6 +12,8 @@ class MenuItem(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    class Meta:
+        verbose_name_plural = "Categories"
 
     def __str__(self):
         return self.name
